@@ -1,0 +1,14 @@
+{
+    "name": "creatio/sota-paperlog",
+    "type": "project",
+    "license": "BSD",
+    "authors": [
+        {
+            "name": "Richard Toth",
+            "email": "toth@creat.io"
+        }
+    ],
+    "require": {
+        "tecnickcom/tcpdf": "^6.8"
+    }
+}
