@@ -1,7 +1,7 @@
 <?php
 require_once __DIR__ . '/vendor/autoload.php';
 
-$columns = [['Time', 17], ['Callsign', 40], ['Loc/Ref', 27], ['Rs', 14], ['Rr', 14], ['Comment', 0]];
+$columns = [['Time', 17], ['Callsign', 40], ['Rs', 14], ['Rr', 14], ['Loc/Ref', 27], ['Comment', 0]];
 
 
 class Speller {
@@ -61,9 +61,9 @@ class SOTAPDF extends \TCPDF {
         $this->SetFont('helvetica', '', 13);
         $this->writeHTMLCell(0, 10, 12, 12, "CQ SOTA CQ SOTA CQ SUMMITS ON THE AIR FROM <b>{$this->callsign}</b> CQ SOTA");
 //        $this->Ln();
-        $this->writeHTMLCell(0, 10, 12, 20, "<span style=\"color:gray;\">SOTA REF ID </span><b style=\"font-family: freesans;\">{$this->summitRef}, {$this->summitName} - {$this->summitHeight}m, {$this->summitPoints} points, {$this->summitLocator}</b>");
+        $this->writeHTMLCell(0, 10, 12, 20, "<span style=\"color:#555;font-size:11pt;\">SOTA REF ID </span><b style=\"font-family: freesans;\">{$this->summitRef}, {$this->summitName} - {$this->summitHeight}m, {$this->summitPoints} points, {$this->summitLocator}</b>");
         $this->writeHTMLCell(0, 10, 12, 25, '<b style="font-family: freesans;">' . Speller::spell($this->summitRef, Speller::EN) . '</b>');
-        $this->writeHTMLCell(0, 10, 12, 30, '<b style="font-family: freesans;color:gray;">' . Speller::spell($this->summitRef, Speller::SK) . '</b>');
+        $this->writeHTMLCell(0, 10, 12, 30, '<b style="font-family: freesans;color:#555;">' . Speller::spell($this->summitRef, Speller::SK) . '</b>');
 
         $this->writeHTMLCell(0, 10, 12, 38, "<b>Date: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/</b>");
     }
@@ -76,11 +76,14 @@ class SOTAPDF extends \TCPDF {
         foreach ($columns as $column) {
             $this->Cell($column[1], 9, $column[0], 1, 0, 'L', 0);
         }
+        $this->SetTextColor(128);
         for ($i = 0; $i < $rows; $i++) {
             $this->Ln(9);
             foreach ($columns as $column) {
                 $this->Cell($column[1], 9, '', 1);
             }
+            $this->Text(150, $this->y+1.5, $i + 1, 0, false, true, 0, 0, 'R');
+            $this->Ln(-1.5);
         }
     }
 }
